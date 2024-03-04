@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SuratMasukController;
 use App\Http\Controllers\SuratKeluarController;
 use App\Http\Controllers\KategoriSuratController;
+use App\Http\Controllers\DataKategoriController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,7 @@ Route::post(
 Route::group(['prefix' => 'surat-masuk', 'as' => 'surat-masuk.', 'middleware' => 'auth:api'], function() {
     Route::get('', [SuratMasukController::class, 'index'])->name('index');
     Route::post('', [SuratMasukController::class, 'store'])->name('store');
+    Route::patch('/{id}', [SuratMasukController::class, 'update'])->name('update');
 });
 
 Route::group(['prefix' => 'surat-keluar', 'as' => 'surat-keluar.', 'middleware' => 'auth:api'], function() {
@@ -47,6 +49,8 @@ Route::group(['prefix' => 'surat-keluar', 'as' => 'surat-keluar.', 'middleware' 
 });
 
 Route::resource('kategori-surat', KategoriSuratController::class);
+
+Route::resource('data-kategori', DataKategoriController::class);
 
 //group route with prefix "admin"
 Route::prefix('admin')->group(function () {

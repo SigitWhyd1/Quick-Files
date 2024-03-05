@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\DataKategori;
 use Illuminate\Http\Request;
-use App\Models\KategoriSurat;
 
 class DataKategoriController extends Controller
 {
@@ -14,45 +13,50 @@ class DataKategoriController extends Controller
         return response()->json($DataKategori);
     }
 
-    public function create()
-    {
-        return view('data_kategori.create');
-    }
-
     public function store(Request $request)
     {
         $request->validate([
-            'jenis_kategori' => 'required|unique:data_kategori|max:255',
-            'deskripsi' => 'required'
+            'jenis_kategori' => 'required',
+            'deskripsi' => 'required',
         ]);
 
-        DataKategori::create($request->all());
+        $DataKategori = DataKategori::create($request->all());
 
-        return redirect()->route('data_kategori.index')->with('success', 'data kategori berhasil disimpan.');
+        return response()->json([
+            'message' => 'Data Kategori Berhasil Dibuat',
+            'data' => $DataKategori
+        ], 201);
     }
 
-    public function edit(DataKategori $dataKategori)
+    public function show($id)
     {
-        return view('data_kategori.edit', compact('dataKategori'));
+        $DataKategori = DataKategori::findOrFail($id);
+        return response()->json($DataKategori);
     }
 
-    public function update(Request $request, DataKategori $dataKategori)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'jenis_kategori' => 'required|unique:data_kategori|max:255',
+            'jenis_kategori' => 'required',
             'deskripsi' => 'required'
         ]);
 
-        $dataKategori->update($request->all());
+        $DataKategori = DataKategori::findOrFail($id);
+        $DataKategori->update($request->all());
 
-        return redirect()->route('data_kategori.index')->with('success', 'data kategori berhasil diperbarui.');
+        return response()->json([
+            'message' => 'Data Kategori Berhasil Diupdate',
+            'data' => $DataKategori
+        ], 200);
     }
 
-    public function destroy(DataKategori $DataKategori)
+    public function destroy($id)
     {
+        $DataKategori = DataKategori::findOrFail($id);
         $DataKategori->delete();
 
-        return redirect()->route('data_kategori.index')->with('success', 'data kategori berhasil dihapus.');
+        return response()->json([
+            'message' => 'Data Kategori Berhasil Dihapus'
+        ], 200);
     }
 }
-

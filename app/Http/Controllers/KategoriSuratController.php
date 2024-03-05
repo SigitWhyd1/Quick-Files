@@ -2,54 +2,65 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\KategoriSurat;
+use Illuminate\Http\Request;
 
 class KategoriSuratController extends Controller
 {
     public function index()
     {
-        $kategoriSurat = KategoriSurat::all();
-        return response()->json($kategoriSurat);
-    }
-
-    public function create()
-    {
-        return view('kategori_surat.create');
+        $KategoriSurat = KategoriSurat::all();
+        return response()->json($KategoriSurat);
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|unique:kategori_surat|max:255'
+            'judul_tugas' => 'required',
+            'tenggat_waktu' => 'required',
+            'deskripsi' => 'required',
+            'status'    => 'required'
         ]);
 
-        KategoriSurat::create($request->all());
+        $KategoriSurat = KategoriSurat::create($request->all());
 
-        return redirect()->route('kategori-surat.index')->with('success', 'Kategori surat berhasil disimpan.');
+        return response()->json([
+            'message' => 'Kategori Surat Berhasil Dibuat',
+            'data' => $KategoriSurat
+        ], 201);
     }
 
-    public function edit(KategoriSurat $kategoriSurat)
+    public function show($id)
     {
-        return view('kategori_surat.edit', compact('kategoriSurat'));
+        $KategoriSurat = KategoriSurat::findOrFail($id);
+        return response()->json($KategoriSurat);
     }
 
-    public function update(Request $request, KategoriSurat $kategoriSurat)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'nama' => 'required|unique:kategori_surat|max:255'
+            'judul_tugas' => 'required',
+            'tenggat_waktu' => 'required',
+            'deskripsi' => 'required',
+            'status'    => 'required'
         ]);
 
-        $kategoriSurat->update($request->all());
+        $KategoriSurat = KategoriSurat::findOrFail($id);
+        $KategoriSurat->update($request->all());
 
-        return redirect()->route('kategori-surat.index')->with('success', 'Kategori surat berhasil diperbarui.');
+        return response()->json([
+            'message' => 'Kategori Surat Berhasil Diupdate',
+            'data' => $KategoriSurat
+        ], 200);
     }
 
-    public function destroy(KategoriSurat $kategoriSurat)
+    public function destroy($id)
     {
-        $kategoriSurat->delete();
+        $KategoriSurat = KategoriSurat::findOrFail($id);
+        $KategoriSurat->delete();
 
-        return redirect()->route('kategori-surat.index')->with('success', 'Kategori surat berhasil dihapus.');
+        return response()->json([
+            'message' => 'Kategori Surat Berhasil Dihapus'
+        ], 200);
     }
 }
-

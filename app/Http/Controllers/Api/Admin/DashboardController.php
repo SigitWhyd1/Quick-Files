@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Carbon\Carbon; // untuk datetime
 use App\Models\User;
 use Illuminate\Support\Facades\DB; //untuk query database
+use App\Models\SuratMasuk;
+use App\Models\SuratKeluar;
 
 class DashboardController extends Controller
 {
@@ -15,19 +17,14 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
-        //count users
-        $users = User::count();
-    
+        $suratmasuk = SuratMasuk::count();
+        $user = User::count();
+
     //return response json
     return response()->json([
         'success'   => true,
-        'message'   => 'List Data on Dashboard',
-        'data'      => [
-            
-            'users'      => $users,
-            
-            ]
-        ]
-    );
+        'message'   => 'Surat Masuk Di Dashboard', 
+        'data'      => ['surat_masuk' => $suratmasuk]
+    ]);
     }
 }

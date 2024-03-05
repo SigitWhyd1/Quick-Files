@@ -16,43 +16,43 @@ class DataKategoriController extends Controller
 
     public function create()
     {
-        return view('data-kategori.create');
+        return view('data_kategori.create');
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'jenis_kategori' => 'required|unique:data-kategori|max:255',
+            'jenis_kategori' => 'required|unique:data_kategori|max:255',
             'deskripsi' => 'required'
         ]);
 
         DataKategori::create($request->all());
 
-        return redirect()->route('data-kategori.index')->with('success', 'data kategori berhasil disimpan.');
+        return redirect()->route('data_kategori.index')->with('success', 'data kategori berhasil disimpan.');
     }
 
     public function edit(DataKategori $dataKategori)
     {
-        return view('data-kategori.edit', compact('dataKategori'));
+        return view('data_kategori.edit', compact('dataKategori'));
     }
 
     public function update(Request $request, DataKategori $dataKategori)
     {
         $request->validate([
-            'jenis_kategori' => 'required|unique:data-kategori|max:255',
+            'jenis_kategori' => 'required|unique:data_kategori|max:255',
             'deskripsi' => 'required'
         ]);
 
         $dataKategori->update($request->all());
 
-        return redirect()->route('data-kategori.index')->with('success', 'data kategori berhasil diperbarui.');
+        return redirect()->route('data_kategori.index')->with('success', 'data kategori berhasil diperbarui.');
     }
 
     public function destroy(DataKategori $DataKategori)
     {
         $DataKategori->delete();
 
-        return redirect()->route('data-kategori.index')->with('success', 'data kategori berhasil dihapus.');
+        return redirect()->route('data_kategori.index')->with('success', 'data kategori berhasil dihapus.');
     }
 }
 

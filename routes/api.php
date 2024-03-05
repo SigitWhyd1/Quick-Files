@@ -7,6 +7,11 @@ use App\Http\Controllers\SuratMasukController;
 use App\Http\Controllers\SuratKeluarController;
 use App\Http\Controllers\KategoriSuratController;
 use App\Http\Controllers\DataKategoriController;
+use App\Http\Controllers\ManajemenTugasController;
+use App\Http\Controllers\NotifikasiController;
+use App\Http\Controllers\PencarianController;
+use App\Http\Controllers\RiwayatSuratController;
+use App\Http\Controllers\TugasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,7 +55,17 @@ Route::group(['prefix' => 'surat-keluar', 'as' => 'surat-keluar.', 'middleware' 
 
 Route::resource('kategori-surat', KategoriSuratController::class);
 
-Route::resource('data-kategori', DataKategoriController::class);
+Route::resource('data_kategori', DataKategoriController::class);
+
+Route::resource('manajemen_tugas', ManajemenTugasController::class);
+
+Route::resource('riwayat_surat', RiwayatSuratController::class);
+
+Route::resource('notifikasi', NotifikasiController::class);
+
+Route::resource('pencarian', PencarianController::class);
+
+Route::resource('tugas', TugasController::class);
 
 //group route with prefix "admin"
 Route::prefix('admin')->group(function () {

@@ -14,7 +14,7 @@ class CreateSuratKeluarTable extends Migration
             $table->string('penerima');
             $table->text('isi_surat');
             $table->date('tanggal_keluar');
-            $table->string('perihal');
+            $table->string('tujuan_surat');
             $table->string('kategori_surat');
             $table->string('status');
             $table->timestamps();

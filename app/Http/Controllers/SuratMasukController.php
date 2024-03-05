@@ -25,7 +25,7 @@ class SuratMasukController extends Controller
             'nomor_surat' => 'required',
             'tanggal_masuk' => 'required|date',
             'pengirim' => 'required',
-            'perihal' => 'required',
+            'tujuan_surat' => 'required',
             'isi_surat' => 'required',
             'kategori_surat' => 'required',
             'status' => 'required'
@@ -34,7 +34,7 @@ class SuratMasukController extends Controller
         $suratMasuk = SuratMasuk::create($request->all());
 
         return response()->json([
-            'message' => 'Data created successfully',
+            'message' => 'Surat Masuk Berhasil Dibuat',
             'data' => $suratMasuk
         ], 201);
     }
@@ -47,7 +47,7 @@ class SuratMasukController extends Controller
 
     public function edit($id)
     {
-        // Jika Anda ingin menampilkan form pengeditan surat masuk, Anda dapat membuat tampilan (view) khusus untuk ini
+
         $suratMasuk = SuratMasuk::findOrFail($id);
         return view('surat_masuk.edit', compact('suratMasuk'));
     }
@@ -58,7 +58,7 @@ class SuratMasukController extends Controller
             'nomor_surat' => 'required',
             'tanggal_masuk' => 'required|date',
             'pengirim' => 'required',
-            'perihal' => 'required',
+            'tujuan_surat' => 'required',
             'isi_surat' => 'required',
             'kategori_surat' => 'required',
             'status' => 'required'
@@ -68,18 +68,19 @@ class SuratMasukController extends Controller
         $suratMasuk->update($request->all());
 
         return response()->json([
-            'message' => 'Data updated successfully',
+            'message' => 'Surat Masuk Berhasil Diupdate',
             'data' => $suratMasuk
         ], 200);
     }
 
-    public function destroy($id)
+    public function delete($id)
     {
         $suratMasuk = SuratMasuk::findOrFail($id);
         $suratMasuk->delete();
 
         return response()->json([
-            'message' => 'Data deleted successfully'
+            'message' => 'Surat Masuk Berhasil Dihapus',
+            'data' => $suratMasuk
         ], 200);
     }
 }

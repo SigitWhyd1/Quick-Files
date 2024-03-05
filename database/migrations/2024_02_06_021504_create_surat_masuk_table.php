@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('pengirim');
             $table->text('isi_surat');
             $table->date('tanggal_masuk');
-            $table->string('perihal');
+            $table->string('tujuan_surat');
             $table->string('kategori_surat');
             $table->string('status');
             $table->timestamps();

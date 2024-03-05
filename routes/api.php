@@ -46,11 +46,14 @@ Route::group(['prefix' => 'surat-masuk', 'as' => 'surat-masuk.', 'middleware' =>
     Route::get('', [SuratMasukController::class, 'index'])->name('index');
     Route::post('', [SuratMasukController::class, 'store'])->name('store');
     Route::patch('/{id}', [SuratMasukController::class, 'update'])->name('update');
+    Route::delete('/{id}', [SuratMasukController::class, 'delete'])->name('delete');
 });
 
 Route::group(['prefix' => 'surat-keluar', 'as' => 'surat-keluar.', 'middleware' => 'auth:api'], function() {
     Route::get('', [SuratKeluarController::class, 'index'])->name('index');
     Route::post('', [SuratKeluarController::class, 'store'])->name('store');
+    Route::patch('/{id}', [SuratKeluarController::class, 'update'])->name('update');
+    Route::delete('/{id}', [SuratKeluarController::class, 'delete'])->name('delete');
 });
 
 Route::resource('kategori-surat', KategoriSuratController::class);
